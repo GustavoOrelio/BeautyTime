@@ -8,7 +8,9 @@
     <meta name="description" content="" />
     <meta name="author" content="Gustavo Orélio" />
 
-    <title>Sticky Footer Navbar Template · Bootstrap v5.3</title>
+    <title>
+      {% block title%} BeautyTime - Agendamento de Horarios {% endblock %}
+    </title>
 
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/sticky-footer-navbar.css' %}" rel="stylesheet" />
@@ -16,6 +18,7 @@
   </head>
 
   <body class="d-flex flex-column h-100">
+    {% block header %}
     <header>
       <!-- Fixed navbar -->
       <nav
@@ -37,13 +40,57 @@
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="{% url 'pagina-inicial' %}"
+                  >Home</a
+                >
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li>
+                    <hr class="dropdown-divider" />
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </li>
+                </ul>
               </li>
             </ul>
             <form class="d-flex" role="search">
@@ -53,8 +100,8 @@
                 placeholder="Search"
                 aria-label="Search"
               />
-              <button class="btn btn-outline-success" type="submit">
-                Search
+              <button class="btn btn-outline-light" type="submit">
+                Pesquisar
               </button>
             </form>
           </div>
@@ -62,11 +109,14 @@
       </nav>
     </header>
 
+    {% endblock %}
+
     <!-- Begin page content -->
     <main class="flex-shrink-0">
       <div class="container">
+        {% block conteudo %}
         <h1 class="mt-5">Sistema para Salão de Beleza</h1>
-        
+
         <p>
           Back to
           <a href="/docs/5.3/examples/sticky-footer/"
@@ -74,15 +124,23 @@
           >
           minus the navbar.
         </p>
+        {% endblock %}
       </div>
     </main>
 
     <footer class="footer mt-auto py-3 bg-light">
       <div class="container">
-        <span class="text-muted">Place sticky footer content here.</span>
+        <span class="text-muted">
+          {% block rodape %} BeautyTime - Sistema para agendamento -
+          Desenvolvido por Gustavo Orélio {% endblock %}
+        </span>
       </div>
     </footer>
 
+    <script src="{% static 'js/jquery-3.6.4.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    {% block scripts %} {% endblock %}   
   </body>
 </html>

@@ -17,10 +17,10 @@
 }
 
 .text-verde-escuro {
-  color: var(--verde-escuro);
+  color: var(--azul-escuro);
 }
 
 .bg-verde-escuro {
-  background-color: var(--verde-escuro);
+  background-color: var(--azul-escuro);
   color: #ffffff;
 }

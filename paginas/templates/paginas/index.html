@@ -1,16 +1,8 @@
 <!-- Carregar e permitir o uso dos arquivos estáticos. -->
-{% load static %}
+{% extends 'paginas/modelo.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
-</head>
-<body>
-    <h2>Olá Django</h2>
-</body>
-</html>
+{% load static %} 
+
+{% block conteudo %}
+<h2 class="mt-5">Sistema de Salao de Beleza</h2>
+{% endblock %}
