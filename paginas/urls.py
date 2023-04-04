@@ -3,6 +3,6 @@ from .views import IndexView
 
 urlpatterns = [
 
-    path("pagina-inicial", IndexView.as_view(), name="pagina-inicial"),
+    path("", IndexView.as_view(), name="pagina-inicial"),
 
 ]
