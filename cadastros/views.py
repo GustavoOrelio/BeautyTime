@@ -10,9 +10,16 @@ from django.views.generic.detail import DetailView
 #################### CADASTRAR ####################
 class FuncionarioCreate(CreateView):
     model = Funcionario
-    fields = ["nome", "endereco", "telefone", "email", "cpf", "observacao"]
+    fields = ["nome", "cpf", "telefone", "endereco",
+              "numero", "cep", "bairro", "email",  "observacao"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-funcionario")
+
+    def get_context_data(self, *args, **kwargs):
+        dados = super().get_context_data(*args, **kwargs)
+        dados["titulo"] = "Cadastro de Funcionarios"
+        return dados
+
 
 class ClienteCreate(CreateView):
     model = Cliente
@@ -29,6 +36,7 @@ class FuncionarioUpdate(UpdateView):
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-funcionario")
 
+
 class ClienteUpdate(UpdateView):
     model = Cliente
     fields = ["nome", "endereco", "telefone", "email", "cpf", "observacao"]
@@ -37,10 +45,12 @@ class ClienteUpdate(UpdateView):
 
 #################### DELETAR ####################
 
+
 class FuncionarioDelete(DeleteView):
     model = Funcionario
     template_name = "cadastros/delete.html"
     success_url = reverse_lazy("listar-funcionario")
+
 
 class ClienteDelete(DeleteView):
     model = Cliente
@@ -49,9 +59,11 @@ class ClienteDelete(DeleteView):
 
 #################### LISTAR ####################
 
+
 class FuncionarioList(ListView):
     model = Funcionario
     template_name = "cadastros/list/funcionario.html"
+
 
 class ClienteList(ListView):
     model = Cliente
@@ -59,9 +71,11 @@ class ClienteList(ListView):
 
 #################### DETALHES ####################
 
+
 class FuncionarioDetail(DetailView):
     model = Funcionario
     template_name = "cadastros/detail/funcionario.html"
+
 
 class ClienteDetail(DetailView):
     model = Cliente
