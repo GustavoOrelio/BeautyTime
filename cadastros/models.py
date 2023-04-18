@@ -38,6 +38,22 @@ class Funcionario(models.Model):
         return f"{self.nome} ({self.telefone})"
 
 
+class Estado(models.Model):
+    nome = models.CharField(max_length=50)
+    sigla = models.CharField(max_length=2)
+
+    def __str__(self):
+        return self.nome
+
+
+class Cidade(models.Model):
+    nome = models.CharField(max_length=50)
+    estado = models.ForeignKey(Estado, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return f"{self.nome} ({self.estado.sigla})"
+
+
 class Servico(models.Model):
     nome = models.CharField(max_length=50)
     descricao = models.CharField(max_length=100)

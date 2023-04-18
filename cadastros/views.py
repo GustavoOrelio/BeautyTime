@@ -1,4 +1,5 @@
-from .models import Funcionario, Cliente
+from django.http import HttpResponseRedirect
+from .models import *
 from django.urls import reverse_lazy
 
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -28,6 +29,30 @@ class ClienteCreate(CreateView):
     success_url = reverse_lazy("listar-cliente")
 
 
+class EstadoCreateView(CreateView):
+    model = Estado
+    fields = ["nome", "sigla"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-estado")
+
+    def get_context_data(self, *args, **kwargs):
+        dados = super().get_context_data(*args, **kwargs)
+        dados["titulo"] = "Cadastro de Estados"
+        return dados
+
+
+class CidadeCreateView(CreateView):
+    model = Cidade
+    fields = ["nome", "estado"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-cidade")
+
+    def get_context_data(self, *args, **kwargs):
+        dados = super().get_context_data(*args, **kwargs)
+        dados["titulo"] = "Cadastro de Cidades"
+        return dados
+
+
 #################### ATUALIZAR ####################
 
 class FuncionarioUpdate(UpdateView):
@@ -43,6 +68,21 @@ class ClienteUpdate(UpdateView):
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cliente")
 
+
+class EstadoUpdateView(UpdateView):
+    model = Estado
+    fields = ["nome", "sigla"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-estado")
+
+
+class CidadeUpdateView(UpdateView):
+    model = Cidade
+    fields = ["nome", "estado"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-cidade")
+
+
 #################### DELETAR ####################
 
 
@@ -57,6 +97,18 @@ class ClienteDelete(DeleteView):
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cliente")
 
+
+class EstadoDeleteView(DeleteView):
+    model = Estado
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-estado")
+
+class CidadeDeleteView(DeleteView):
+    model = Cidade
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-cidade")
+
+
 #################### LISTAR ####################
 
 
@@ -69,6 +121,17 @@ class ClienteList(ListView):
     model = Cliente
     template_name = "cadastros/list/cliente.html"
 
+
+class EstadoListView(ListView):
+    model = Estado
+    template_name = "cadastros/list/estado.html"
+
+
+class CidadeListView(ListView):
+    model = Cidade
+    template_name = "cadastros/list/cidade.html"
+
+
 #################### DETALHES ####################
 
 
@@ -80,3 +143,13 @@ class FuncionarioDetail(DetailView):
 class ClienteDetail(DetailView):
     model = Cliente
     template_name = "cadastros/detail/cliente.html"
+
+
+class EstadoDetailView(DetailView):
+    model = Estado
+    template_name = "cadastros/detail/estado.html"
+
+
+class CidadeDetailView(DetailView):
+    model = Cidade
+    template_name = "cadastros/detail/cidade.html"

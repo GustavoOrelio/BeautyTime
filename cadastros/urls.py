@@ -1,7 +1,6 @@
 from django.urls import path
 
-from .views import FuncionarioCreate, FuncionarioUpdate, FuncionarioList, FuncionarioDetail, FuncionarioDelete
-from .views import ClienteCreate, ClienteUpdate, ClienteList, ClienteDetail, ClienteDelete
+from .views import *
 
 urlpatterns = [
     ###################################### FUNCIONARIO ######################################
@@ -26,4 +25,24 @@ urlpatterns = [
          ClienteDelete.as_view(), name="excluir-cliente"),
     path("detalhar/cliente/<int:pk>/",
          ClienteDetail.as_view(), name="detalhar-cliente"),
+
+    # URLs para a classe Estado
+    path("cadastrar/estado/", EstadoCreateView.as_view(), name="cadastrar-estado"),
+    path("editar/estado/<int:pk>/",
+         EstadoUpdateView.as_view(), name="editar-estado"),
+    path("listar/estado/", EstadoListView.as_view(), name="listar-estado"),
+    path("excluir/estado/<int:pk>/",
+         EstadoDeleteView.as_view(), name="excluir-estado"),
+    path("detalhar/estado/<int:pk>/",
+         EstadoDetailView.as_view(), name="detalhar-estado"),
+
+    # URLs para a classe Cidade
+    path("cadastrar/cidade/", CidadeCreateView.as_view(), name="cadastrar-cidade"),
+    path("editar/cidade/<int:pk>/",
+         CidadeUpdateView.as_view(), name="editar-cidade"),
+    path("listar/cidade/", CidadeListView.as_view(), name="listar-cidade"),
+    path("excluir/cidade/<int:pk>/",
+         CidadeDeleteView.as_view(), name="excluir-cidade"),
+    path("detalhar/cidade/<int:pk>/",
+         CidadeDetailView.as_view(), name="detalhar-cidade"),
 ]
