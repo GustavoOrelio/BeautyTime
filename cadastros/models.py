@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class Cliente(models.Model):
     nome = models.CharField(max_length=50)
     cpf = models.CharField(max_length=14)
@@ -30,7 +29,8 @@ class Funcionario(models.Model):
     cep = models.CharField(max_length=9, verbose_name="CEP")
     bairro = models.CharField(max_length=50)
     email = models.EmailField(max_length=100)
-    observacao = models.CharField(max_length=100, blank=True, null=True, verbose_name="Observação")
+    observacao = models.CharField(
+        max_length=100, blank=True, null=True, verbose_name="Observação")
     atualizado_em = models.DateTimeField(auto_now=True)
     cadastrado_em = models.DateTimeField(auto_now_add=True)
 

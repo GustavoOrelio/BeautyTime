@@ -48,13 +48,13 @@ class ClienteUpdate(UpdateView):
 
 class FuncionarioDelete(DeleteView):
     model = Funcionario
-    template_name = "cadastros/delete.html"
+    template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-funcionario")
 
 
 class ClienteDelete(DeleteView):
     model = Cliente
-    template_name = "cadastros/delete.html"
+    template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cliente")
 
 #################### LISTAR ####################
