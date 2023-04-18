@@ -4,7 +4,6 @@ from .views import *
 
 urlpatterns = [
     ###################################### FUNCIONARIO ######################################
-
     path("cadastrar/funcionario/", FuncionarioCreate.as_view(),
          name="cadastrar-funcionario"),
     path("editar/funcionario/<int:pk>/",
@@ -26,7 +25,7 @@ urlpatterns = [
     path("detalhar/cliente/<int:pk>/",
          ClienteDetail.as_view(), name="detalhar-cliente"),
 
-    # URLs para a classe Estado
+    ######################################## ESTADO #########################################
     path("cadastrar/estado/", EstadoCreateView.as_view(), name="cadastrar-estado"),
     path("editar/estado/<int:pk>/",
          EstadoUpdateView.as_view(), name="editar-estado"),
@@ -36,7 +35,7 @@ urlpatterns = [
     path("detalhar/estado/<int:pk>/",
          EstadoDetailView.as_view(), name="detalhar-estado"),
 
-    # URLs para a classe Cidade
+    ######################################## CIDADE #########################################
     path("cadastrar/cidade/", CidadeCreateView.as_view(), name="cadastrar-cidade"),
     path("editar/cidade/<int:pk>/",
          CidadeUpdateView.as_view(), name="editar-cidade"),
