@@ -44,6 +44,9 @@ INSTALLED_APPS = [
      # Ativar complementos
     "crispy_forms",
     "crispy_bootstrap5",
+
+    #Ao editar registro apaga o antigo e mantem apenas o novo
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [

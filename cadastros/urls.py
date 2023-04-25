@@ -44,4 +44,14 @@ urlpatterns = [
          CidadeDeleteView.as_view(), name="excluir-cidade"),
     path("detalhar/cidade/<int:pk>/",
          CidadeDetailView.as_view(), name="detalhar-cidade"),
+
+    ######################################## EMPRESA #########################################
+    path("cadastrar/empresa/", EmpresaCreateView.as_view(), name="cadastrar-empresa"),
+    path("editar/empresa/<int:pk>/",
+         EmpresaUpdateView.as_view(), name="editar-empresa"),
+    path("listar/empresa/", EmpresaListView.as_view(), name="listar-empresa"),
+    path("excluir/empresa/<int:pk>/",
+         EmpresaDeleteView.as_view(), name="excluir-empresa"),
+    path("detalhar/empresa/<int:pk>/",
+         EmpresaDetailView.as_view(), name="detalhar-empresa"),
 ]

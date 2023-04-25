@@ -53,7 +53,20 @@ class CidadeCreateView(CreateView):
         return dados
 
 
+class EmpresaCreateView(CreateView):
+    model = Empresa
+    fields = ["nome", "cnpj", "telefone", "endereco", "numero", "cep", "bairro",
+              "logo", "data_cadastro", "horario_abertura", "horario_fechamento"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-empresa")
+
+    def get_context_data(self, *args, **kwargs):
+        dados = super().get_context_data(*args, **kwargs)
+        dados["titulo"] = "Cadastro de Empresas"
+        return dados
+
 #################### ATUALIZAR ####################
+
 
 class FuncionarioUpdate(UpdateView):
     model = Funcionario
@@ -83,6 +96,14 @@ class CidadeUpdateView(UpdateView):
     success_url = reverse_lazy("listar-cidade")
 
 
+class EmpresaUpdateView(UpdateView):
+    model = Empresa
+    fields = ["nome", "cnpj", "telefone", "endereco", "numero", "cep", "bairro",
+              "logo", "data_cadastro", "horario_abertura", "horario_fechamento"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-empresa")
+
+
 #################### DELETAR ####################
 
 
@@ -103,11 +124,17 @@ class EstadoDeleteView(DeleteView):
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-estado")
 
+
 class CidadeDeleteView(DeleteView):
     model = Cidade
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cidade")
 
+
+class EmpresaDeleteView(DeleteView):
+    model = Empresa
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-empresa")
 
 #################### LISTAR ####################
 
@@ -132,6 +159,10 @@ class CidadeListView(ListView):
     template_name = "cadastros/list/cidade.html"
 
 
+class EmpresaListView(ListView):
+    model = Empresa
+    template_name = "cadastros/list/empresa.html"
+
 #################### DETALHES ####################
 
 
@@ -153,3 +184,8 @@ class EstadoDetailView(DetailView):
 class CidadeDetailView(DetailView):
     model = Cidade
     template_name = "cadastros/detail/cidade.html"
+
+
+class EmpresaDetailView(DetailView):
+    model = Empresa
+    template_name = "cadastros/detail/empresa.html"

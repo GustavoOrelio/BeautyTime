@@ -54,6 +54,24 @@ class Cidade(models.Model):
         return f"{self.nome} ({self.estado.sigla})"
 
 
+class Empresa(models.Model):
+    nome = models.CharField(max_length=100)
+    cnpj = models.CharField(max_length=14)
+    telefone = models.CharField(max_length=20)
+    endereco = models.CharField(max_length=200)
+    numero = models.CharField(max_length=10)
+    cep = models.CharField(max_length=8)
+    bairro = models.CharField(max_length=50)
+    logo = models.ImageField(upload_to="", null=True, blank=True)
+    data_cadastro = models.DateField()
+    horario_abertura = models.TimeField()
+    horario_fechamento = models.TimeField()
+    cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.nome
+
+
 class Servico(models.Model):
     nome = models.CharField(max_length=50)
     descricao = models.CharField(max_length=100)
