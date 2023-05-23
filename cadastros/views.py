@@ -5,10 +5,16 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic import TemplateView
 # Create your views here.
 
 
+class SobreView(TemplateView):
+    template_name = "cadastros/list/sobre.html"
+
 #################### CADASTRAR ####################
+
+
 class FuncionarioCreate(CreateView):
     model = Funcionario
     fields = ["nome", "cpf", "telefone", "endereco",
@@ -27,6 +33,11 @@ class ClienteCreate(CreateView):
     fields = ["nome", "endereco", "telefone", "email", "cpf", "observacao"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cliente")
+
+    def get_context_data(self, *args, **kwargs):
+        dados = super().get_context_data(*args, **kwargs)
+        dados["titulo"] = "Cadastro de Clientes"
+        return dados
 
 
 class EstadoCreateView(CreateView):

@@ -54,4 +54,6 @@ urlpatterns = [
          EmpresaDeleteView.as_view(), name="excluir-empresa"),
     path("detalhar/empresa/<int:pk>/",
          EmpresaDetailView.as_view(), name="detalhar-empresa"),
+
+     path("sobre/", SobreView.as_view(), name="sobre"),
 ]
