@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -15,6 +16,8 @@ class Cliente(models.Model):
         max_length=100, null=True, verbose_name="Observação")
     atualizado_em = models.DateTimeField(auto_now=True)
     cadastrado_em = models.DateTimeField(auto_now_add=True)
+
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.nome} ({self.telefone})"
@@ -33,6 +36,8 @@ class Funcionario(models.Model):
         max_length=100, blank=True, null=True, verbose_name="Observação")
     atualizado_em = models.DateTimeField(auto_now=True)
     cadastrado_em = models.DateTimeField(auto_now_add=True)
+
+    usuario = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.nome} ({self.telefone})"
@@ -55,6 +60,7 @@ class Cidade(models.Model):
 
 
 class Empresa(models.Model):
+    
     nome = models.CharField(max_length=100)
     cnpj = models.CharField(max_length=14)
     telefone = models.CharField(max_length=20)

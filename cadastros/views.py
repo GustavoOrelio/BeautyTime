@@ -6,6 +6,9 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 # Create your views here.
 
 
@@ -15,7 +18,7 @@ class SobreView(TemplateView):
 #################### CADASTRAR ####################
 
 
-class FuncionarioCreate(CreateView):
+class FuncionarioCreate(LoginRequiredMixin, CreateView):
     model = Funcionario
     fields = ["nome", "cpf", "telefone", "endereco",
               "numero", "cep", "bairro", "email",  "observacao"]
