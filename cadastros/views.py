@@ -9,6 +9,11 @@ from django.views.generic import TemplateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from typing import Any, Optional
+from django.db import models
+from django.db.models.query import QuerySet
+from django.shortcuts import get_object_or_404
+
 # Create your views here.
 
 
@@ -31,7 +36,7 @@ class FuncionarioCreate(LoginRequiredMixin, CreateView):
         return dados
 
 
-class ClienteCreate(CreateView):
+class ClienteCreate(LoginRequiredMixin, CreateView):
     model = Cliente
     fields = ["nome", "endereco", "telefone", "email", "cpf", "observacao"]
     template_name = "cadastros/form.html"
@@ -43,7 +48,7 @@ class ClienteCreate(CreateView):
         return dados
 
 
-class EstadoCreateView(CreateView):
+class EstadoCreateView(LoginRequiredMixin, CreateView):
     model = Estado
     fields = ["nome", "sigla"]
     template_name = "cadastros/form.html"
@@ -55,7 +60,7 @@ class EstadoCreateView(CreateView):
         return dados
 
 
-class CidadeCreateView(CreateView):
+class CidadeCreateView(LoginRequiredMixin, CreateView):
     model = Cidade
     fields = ["nome", "estado"]
     template_name = "cadastros/form.html"
@@ -67,7 +72,7 @@ class CidadeCreateView(CreateView):
         return dados
 
 
-class EmpresaCreateView(CreateView):
+class EmpresaCreateView(LoginRequiredMixin, CreateView):
     model = Empresa
     fields = ["nome", "cnpj", "telefone", "endereco", "numero", "cep", "bairro",
               "logo", "data_cadastro", "horario_abertura", "horario_fechamento"]
@@ -82,35 +87,35 @@ class EmpresaCreateView(CreateView):
 #################### ATUALIZAR ####################
 
 
-class FuncionarioUpdate(UpdateView):
+class FuncionarioUpdate(LoginRequiredMixin, UpdateView):
     model = Funcionario
     fields = ["nome", "endereco", "telefone", "email", "cpf", "observacao"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-funcionario")
 
 
-class ClienteUpdate(UpdateView):
+class ClienteUpdate(LoginRequiredMixin, UpdateView):
     model = Cliente
     fields = ["nome", "endereco", "telefone", "email", "cpf", "observacao"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cliente")
 
 
-class EstadoUpdateView(UpdateView):
+class EstadoUpdateView(LoginRequiredMixin, UpdateView):
     model = Estado
     fields = ["nome", "sigla"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-estado")
 
 
-class CidadeUpdateView(UpdateView):
+class CidadeUpdateView(LoginRequiredMixin, UpdateView):
     model = Cidade
     fields = ["nome", "estado"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cidade")
 
 
-class EmpresaUpdateView(UpdateView):
+class EmpresaUpdateView(LoginRequiredMixin, UpdateView):
     model = Empresa
     fields = ["nome", "cnpj", "telefone", "endereco", "numero", "cep", "bairro",
               "logo", "data_cadastro", "horario_abertura", "horario_fechamento"]
@@ -121,31 +126,31 @@ class EmpresaUpdateView(UpdateView):
 #################### DELETAR ####################
 
 
-class FuncionarioDelete(DeleteView):
+class FuncionarioDelete(LoginRequiredMixin, DeleteView):
     model = Funcionario
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-funcionario")
 
 
-class ClienteDelete(DeleteView):
+class ClienteDelete(LoginRequiredMixin, DeleteView):
     model = Cliente
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cliente")
 
 
-class EstadoDeleteView(DeleteView):
+class EstadoDeleteView(LoginRequiredMixin, DeleteView):
     model = Estado
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-estado")
 
 
-class CidadeDeleteView(DeleteView):
+class CidadeDeleteView(LoginRequiredMixin, DeleteView):
     model = Cidade
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cidade")
 
 
-class EmpresaDeleteView(DeleteView):
+class EmpresaDeleteView(LoginRequiredMixin, DeleteView):
     model = Empresa
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-empresa")
@@ -153,53 +158,53 @@ class EmpresaDeleteView(DeleteView):
 #################### LISTAR ####################
 
 
-class FuncionarioList(ListView):
+class FuncionarioList(LoginRequiredMixin, ListView):
     model = Funcionario
     template_name = "cadastros/list/funcionario.html"
 
 
-class ClienteList(ListView):
+class ClienteList(LoginRequiredMixin, ListView):
     model = Cliente
     template_name = "cadastros/list/cliente.html"
 
 
-class EstadoListView(ListView):
+class EstadoListView(LoginRequiredMixin, ListView):
     model = Estado
     template_name = "cadastros/list/estado.html"
 
 
-class CidadeListView(ListView):
+class CidadeListView(LoginRequiredMixin, ListView):
     model = Cidade
     template_name = "cadastros/list/cidade.html"
 
 
-class EmpresaListView(ListView):
+class EmpresaListView(LoginRequiredMixin, ListView):
     model = Empresa
     template_name = "cadastros/list/empresa.html"
 
 #################### DETALHES ####################
 
 
-class FuncionarioDetail(DetailView):
+class FuncionarioDetail(LoginRequiredMixin, DetailView):
     model = Funcionario
     template_name = "cadastros/detail/funcionario.html"
 
 
-class ClienteDetail(DetailView):
+class ClienteDetail(LoginRequiredMixin, DetailView):
     model = Cliente
     template_name = "cadastros/detail/cliente.html"
 
 
-class EstadoDetailView(DetailView):
+class EstadoDetailView(LoginRequiredMixin, DetailView):
     model = Estado
     template_name = "cadastros/detail/estado.html"
 
 
-class CidadeDetailView(DetailView):
+class CidadeDetailView(LoginRequiredMixin, DetailView):
     model = Cidade
     template_name = "cadastros/detail/cidade.html"
 
 
-class EmpresaDetailView(DetailView):
+class EmpresaDetailView(LoginRequiredMixin, DetailView):
     model = Empresa
     template_name = "cadastros/detail/empresa.html"
