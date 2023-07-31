@@ -26,7 +26,7 @@ class SobreView(TemplateView):
 class FuncionarioCreate(LoginRequiredMixin, CreateView):
     model = Funcionario
     fields = ["nome", "cpf", "telefone", "endereco",
-              "numero", "cep", "bairro", "email",  "observacao"]
+              "numero", "cep", "bairro", "email", "usuario", "observacao"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-funcionario")
 
@@ -38,7 +38,8 @@ class FuncionarioCreate(LoginRequiredMixin, CreateView):
 
 class ClienteCreate(LoginRequiredMixin, CreateView):
     model = Cliente
-    fields = ["nome", "endereco", "telefone", "email", "cpf", "observacao"]
+    fields = ["nome", "endereco", "telefone",
+              "email", "cpf", "usuario", "observacao"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cliente")
 
@@ -89,14 +90,16 @@ class EmpresaCreateView(LoginRequiredMixin, CreateView):
 
 class FuncionarioUpdate(LoginRequiredMixin, UpdateView):
     model = Funcionario
-    fields = ["nome", "endereco", "telefone", "email", "cpf", "observacao"]
+    fields = ["nome", "endereco", "telefone",
+              "email", "cpf", "usuario", "observacao"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-funcionario")
 
 
 class ClienteUpdate(LoginRequiredMixin, UpdateView):
     model = Cliente
-    fields = ["nome", "endereco", "telefone", "email", "cpf", "observacao"]
+    fields = ["nome", "endereco", "telefone",
+              "email", "cpf", "usuario", "observacao"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cliente")
 
@@ -161,6 +164,7 @@ class EmpresaDeleteView(LoginRequiredMixin, DeleteView):
 class FuncionarioList(LoginRequiredMixin, ListView):
     model = Funcionario
     template_name = "cadastros/list/funcionario.html"
+    paginate_by = 15
 
 
 class ClienteList(LoginRequiredMixin, ListView):

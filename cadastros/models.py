@@ -27,7 +27,7 @@ class Funcionario(models.Model):
     nome = models.CharField(max_length=50)
     cpf = models.CharField(max_length=14)
     telefone = models.CharField(max_length=15)
-    endereco = models.CharField(max_length=100, verbose_name="Endereço")
+    endereco = models.CharField(max_length=100, verbose_name="Endere    ço")
     numero = models.CharField(max_length=5, verbose_name="Número residencial")
     cep = models.CharField(max_length=9, verbose_name="CEP")
     bairro = models.CharField(max_length=50)

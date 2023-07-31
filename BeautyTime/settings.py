@@ -48,6 +48,8 @@ INSTALLED_APPS = [
 
     #Ao editar registro apaga o antigo e mantem apenas o novo
     'django_cleanup.apps.CleanupConfig',
+
+    "debug_toolbar",
 ]
 
 MIDDLEWARE = [
@@ -58,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'BeautyTime.urls'
@@ -145,3 +148,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 LOGIN_URL = "login"
 LOGOUT_REDIRECT_URL = "pagina-inicial"
 LOGIN_REDIRECT_URL = "pagina-inicial"
+
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
