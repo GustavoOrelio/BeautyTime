@@ -1,4 +1,9 @@
 from django.http import HttpResponseRedirect
+from typing import Any, Optional
+from django.db import models
+from django.db.models.query import QuerySet
+from django.forms.models import BaseModelForm
+from django.http import HttpResponse
 from .models import *
 from django.urls import reverse_lazy
 
@@ -8,13 +13,21 @@ from django.views.generic.detail import DetailView
 from django.views.generic import TemplateView
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from braces.views import GroupRequiredMixin
 
 from typing import Any, Optional
 from django.db import models
 from django.db.models.query import QuerySet
 from django.shortcuts import get_object_or_404
 
+# Importação da biblioteca do autocomplete
+from dal import autocomplete
+
+# Importação dos meus formulários personalizados
+from .forms import EmpresaForm
+
 # Create your views here.
+
 
 
 class SobreView(TemplateView):
@@ -23,12 +36,13 @@ class SobreView(TemplateView):
 #################### CADASTRAR ####################
 
 
-class FuncionarioCreate(LoginRequiredMixin, CreateView):
+class FuncionarioCreate(GroupRequiredMixin, CreateView):
     model = Funcionario
     fields = ["nome", "cpf", "telefone", "endereco",
               "numero", "cep", "bairro", "email", "usuario", "observacao"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-funcionario")
+    group_required = ["Administrador"]
 
     def get_context_data(self, *args, **kwargs):
         dados = super().get_context_data(*args, **kwargs)
@@ -36,12 +50,13 @@ class FuncionarioCreate(LoginRequiredMixin, CreateView):
         return dados
 
 
-class ClienteCreate(LoginRequiredMixin, CreateView):
+class ClienteCreate(GroupRequiredMixin, CreateView):
     model = Cliente
     fields = ["nome", "endereco", "telefone",
               "email", "cpf", "usuario", "observacao"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cliente")
+    group_required = ["Administrador"]
 
     def get_context_data(self, *args, **kwargs):
         dados = super().get_context_data(*args, **kwargs)
@@ -49,11 +64,12 @@ class ClienteCreate(LoginRequiredMixin, CreateView):
         return dados
 
 
-class EstadoCreateView(LoginRequiredMixin, CreateView):
+class EstadoCreateView(GroupRequiredMixin, CreateView):
     model = Estado
     fields = ["nome", "sigla"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-estado")
+    group_required = ["Administrador"]
 
     def get_context_data(self, *args, **kwargs):
         dados = super().get_context_data(*args, **kwargs)
@@ -61,11 +77,12 @@ class EstadoCreateView(LoginRequiredMixin, CreateView):
         return dados
 
 
-class CidadeCreateView(LoginRequiredMixin, CreateView):
+class CidadeCreateView(GroupRequiredMixin, CreateView):
     model = Cidade
     fields = ["nome", "estado"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cidade")
+    group_required = ["Administrador"]
 
     def get_context_data(self, *args, **kwargs):
         dados = super().get_context_data(*args, **kwargs)
@@ -73,12 +90,11 @@ class CidadeCreateView(LoginRequiredMixin, CreateView):
         return dados
 
 
-class EmpresaCreateView(LoginRequiredMixin, CreateView):
-    model = Empresa
-    fields = ["nome", "cnpj", "telefone", "endereco", "numero", "cep", "bairro",
-              "logo", "data_cadastro", "horario_abertura", "horario_fechamento"]
+class EmpresaCreateView(GroupRequiredMixin, CreateView):
+    form_class = EmpresaForm
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-empresa")
+    group_required = ["Administrador"]
 
     def get_context_data(self, *args, **kwargs):
         dados = super().get_context_data(*args, **kwargs)
@@ -88,127 +104,167 @@ class EmpresaCreateView(LoginRequiredMixin, CreateView):
 #################### ATUALIZAR ####################
 
 
-class FuncionarioUpdate(LoginRequiredMixin, UpdateView):
+class FuncionarioUpdate(GroupRequiredMixin, UpdateView):
     model = Funcionario
     fields = ["nome", "endereco", "telefone",
               "email", "cpf", "usuario", "observacao"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-funcionario")
+    group_required = ["Administrador"]
 
 
-class ClienteUpdate(LoginRequiredMixin, UpdateView):
+class ClienteUpdate(GroupRequiredMixin, UpdateView):
     model = Cliente
     fields = ["nome", "endereco", "telefone",
               "email", "cpf", "usuario", "observacao"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cliente")
+    group_required = ["Administrador"]
 
 
-class EstadoUpdateView(LoginRequiredMixin, UpdateView):
+class EstadoUpdateView(GroupRequiredMixin, UpdateView):
     model = Estado
     fields = ["nome", "sigla"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-estado")
+    group_required = ["Administrador"]
 
 
-class CidadeUpdateView(LoginRequiredMixin, UpdateView):
+class CidadeUpdateView(GroupRequiredMixin, UpdateView):
     model = Cidade
     fields = ["nome", "estado"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cidade")
+    group_required = ["Administrador"]
 
 
-class EmpresaUpdateView(LoginRequiredMixin, UpdateView):
+class EmpresaUpdateView(GroupRequiredMixin, UpdateView):
     model = Empresa
     fields = ["nome", "cnpj", "telefone", "endereco", "numero", "cep", "bairro",
               "logo", "data_cadastro", "horario_abertura", "horario_fechamento"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-empresa")
+    group_required = ["Administrador"]
 
 
 #################### DELETAR ####################
 
 
-class FuncionarioDelete(LoginRequiredMixin, DeleteView):
+class FuncionarioDelete(GroupRequiredMixin, DeleteView):
     model = Funcionario
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-funcionario")
+    group_required = ["Administrador"]
 
 
-class ClienteDelete(LoginRequiredMixin, DeleteView):
+class ClienteDelete(GroupRequiredMixin, DeleteView):
     model = Cliente
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cliente")
+    group_required = ["Administrador"]
 
 
-class EstadoDeleteView(LoginRequiredMixin, DeleteView):
+class EstadoDeleteView(GroupRequiredMixin, DeleteView):
     model = Estado
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-estado")
+    group_required = ["Administrador"]
 
 
-class CidadeDeleteView(LoginRequiredMixin, DeleteView):
+class CidadeDeleteView(GroupRequiredMixin, DeleteView):
     model = Cidade
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-cidade")
+    group_required = ["Administrador"]
 
 
-class EmpresaDeleteView(LoginRequiredMixin, DeleteView):
+class EmpresaDeleteView(GroupRequiredMixin, DeleteView):
     model = Empresa
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-empresa")
+    group_required = ["Administrador"]
 
 #################### LISTAR ####################
 
 
-class FuncionarioList(LoginRequiredMixin, ListView):
+class FuncionarioList(GroupRequiredMixin, ListView):
     model = Funcionario
     template_name = "cadastros/list/funcionario.html"
-    paginate_by = 15
+    group_required = ["Administrador"]
+    paginate_by = 50
 
 
-class ClienteList(LoginRequiredMixin, ListView):
+class ClienteList(GroupRequiredMixin, ListView):
     model = Cliente
     template_name = "cadastros/list/cliente.html"
+    group_required = ["Administrador"]
+    paginate_by = 50
 
 
-class EstadoListView(LoginRequiredMixin, ListView):
+class EstadoList(GroupRequiredMixin, ListView):
     model = Estado
     template_name = "cadastros/list/estado.html"
+    group_required = ["Administrador"]
+    paginate_by = 50
 
 
-class CidadeListView(LoginRequiredMixin, ListView):
+class CidadeList(GroupRequiredMixin, ListView):
     model = Cidade
     template_name = "cadastros/list/cidade.html"
+    group_required = ["Administrador"]
+    paginate_by = 50
 
 
-class EmpresaListView(LoginRequiredMixin, ListView):
+class EmpresaList(GroupRequiredMixin, ListView):
     model = Empresa
     template_name = "cadastros/list/empresa.html"
+    group_required = ["Administrador"]
+    paginate_by = 50
 
 #################### DETALHES ####################
 
 
-class FuncionarioDetail(LoginRequiredMixin, DetailView):
+class FuncionarioDetail(GroupRequiredMixin, DetailView):
     model = Funcionario
     template_name = "cadastros/detail/funcionario.html"
+    group_required = ["Administrador"]
 
 
-class ClienteDetail(LoginRequiredMixin, DetailView):
+class ClienteDetail(GroupRequiredMixin, DetailView):
     model = Cliente
     template_name = "cadastros/detail/cliente.html"
+    group_required = ["Administrador"]
 
 
-class EstadoDetailView(LoginRequiredMixin, DetailView):
+class EstadoDetailView(GroupRequiredMixin, DetailView):
     model = Estado
     template_name = "cadastros/detail/estado.html"
+    group_required = ["Administrador"]
 
 
-class CidadeDetailView(LoginRequiredMixin, DetailView):
+class CidadeDetailView(GroupRequiredMixin, DetailView):
     model = Cidade
     template_name = "cadastros/detail/cidade.html"
+    group_required = ["Administrador"]
 
 
-class EmpresaDetailView(LoginRequiredMixin, DetailView):
+class EmpresaDetailView(GroupRequiredMixin, DetailView):
     model = Empresa
     template_name = "cadastros/detail/empresa.html"
+    group_required = ["Administrador"]
+
+############## AUTOCOMPLETE ################
+
+# Criar uma view com essa herança e que retorne uma lista de objetos
+class FuncionarioAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+
+        object_list = Funcionario.objects.all()
+
+        # Pega o termo do campo e faz um filtro nele
+        if self.q:
+            object_list = object_list.filter(
+                nome__icontains=self.q
+            )
+        # Retorna a lista de objetos
+        return object_list

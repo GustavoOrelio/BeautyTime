@@ -30,6 +30,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
+    # Ativar o autocomplete antes de todos os apps
+    'dal',
+    'dal_select2',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,11 +50,10 @@ INSTALLED_APPS = [
      # Ativar complementos
     "crispy_forms",
     "crispy_bootstrap5",
+    "debug_toolbar",
 
     #Ao editar registro apaga o antigo e mantem apenas o novo
     'django_cleanup.apps.CleanupConfig',
-
-    "debug_toolbar",
 ]
 
 MIDDLEWARE = [

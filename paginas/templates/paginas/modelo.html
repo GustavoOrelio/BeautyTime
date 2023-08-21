@@ -11,7 +11,7 @@
 
     <title>
         {% block title %}
-        BeautyTime
+        BeautyTime :: Agendamento para Salão de Beleza
         {% endblock %}
     </title>
 
@@ -36,13 +36,14 @@
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-verde-escuro">
             <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'sobre' %}">
+            <a class="navbar-brand" href="#">Fixed navbar</a>
+            <!-- <a class="navbar-brand" href="{% url 'sobre' %}">
                 <img class="img-fluid img-brand d-block mx-auto" 
                     width="65" 
                     height="65" 
                     src="{% static 'img/logosalao.png' %}" 
                     alt="">
-            </a>
+            </a> -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -55,10 +56,25 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'sobre' %}">Sobre</a>
                         </li>
+
+                        {% if request.user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Cadastros
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-funcionario' %}">Funcionario</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-cliente' %}">Cliente</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-estado' %}">Estado</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-cidade' %}">Cidade</a></li>
+                                <li><a class="dropdown-item" href="{% url 'cadastrar-empresa' %}">Empresa</a></li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Listar
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{% url 'listar-funcionario' %}">Funcionario</a></li>
@@ -68,21 +84,7 @@
                                 <li><a class="dropdown-item" href="{% url 'listar-empresa' %}">Empresa</a></li>
                             </ul>
                         </li>
-                        
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
-                                Dropdown
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </li>
+                        {% endif %}
 
 
                     </ul>

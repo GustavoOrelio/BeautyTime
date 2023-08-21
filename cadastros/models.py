@@ -27,7 +27,7 @@ class Funcionario(models.Model):
     nome = models.CharField(max_length=50)
     cpf = models.CharField(max_length=14)
     telefone = models.CharField(max_length=15)
-    endereco = models.CharField(max_length=100, verbose_name="Endere    ço")
+    endereco = models.CharField(max_length=100, verbose_name="Endereço")
     numero = models.CharField(max_length=5, verbose_name="Número residencial")
     cep = models.CharField(max_length=9, verbose_name="CEP")
     bairro = models.CharField(max_length=50)
@@ -73,6 +73,7 @@ class Empresa(models.Model):
     horario_abertura = models.TimeField()
     horario_fechamento = models.TimeField()
     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
+    funcionario = models.ForeignKey(Funcionario, on_delete=models.PROTECT)
 
     def __str__(self):
         return self.nome
