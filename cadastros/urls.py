@@ -55,8 +55,28 @@ urlpatterns = [
     path("detalhar/empresa/<int:pk>/",
          EmpresaDetailView.as_view(), name="detalhar-empresa"),
 
-     path("sobre/", SobreView.as_view(), name="sobre"),
+     ######################################## SERVIÇO #########################################
+    path("cadastrar/servico/", ServicoCreateView.as_view(), name="cadastrar-servico"),
+    path("editar/servico/<int:pk>/",
+         ServicoUpdateView.as_view(), name="editar-servico"),
+    path("listar/servico/", ServicoList.as_view(), name="listar-servico"),
+    path("excluir/servico/<int:pk>/",
+         ServicoDeleteView.as_view(), name="excluir-servico"),
+    path("detalhar/servico/<int:pk>/",
+         ServicoDetailView.as_view(), name="detalhar-servico"),
+
+     ######################################## AGENDAMENTO #########################################
+     path("cadastrar/agendamento/", AgendamentoCreateView.as_view(), name="cadastrar-agendamento"),
+     path("editar/agendamento/<int:pk>/",
+         AgendamentoUpdateView.as_view(), name="editar-agendamento"),
+     path("listar/agendamento/", AgendamentoList.as_view(), name="listar-agendamento"),
+     path("excluir/agendamento/<int:pk>/",
+         AgendamentoDeleteView.as_view(), name="excluir-agendamento"),
+     path("detalhar/agendamento/<int:pk>/",
+         AgendamentoDetailView.as_view(), name="detalhar-agendamento"),
 
      # URL do autocomplete
-    path("buscar/funcionario/", FuncionarioAutocomplete.as_view(), name="buscar-funcionario"),
+     path("buscar/funcionario/", FuncionarioAutocomplete.as_view(), name="buscar-funcionario"),
+
+     path("sobre/", SobreView.as_view(), name="sobre"),
 ]

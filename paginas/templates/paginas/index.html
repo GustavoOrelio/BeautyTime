@@ -6,14 +6,6 @@
 {% block conteudo %}
 <h3 class="mt-3">BeautyTime</h3>
 
-<!-- Verifica se existe essa sessão com algum valor -->
-{% if request.session.fazenda_pk %}
-<h5>
-    <!-- Acessa o valor que está na sessão -->
-    Sessão fazenda: {{request.session.fazenda_pk}}
-</h5>
-{% endif %}
-
 <hr>
 
 {% if request.user.is_authenticated %}
@@ -28,12 +20,12 @@
         <th>Horário</th>
     </tr>
 
-    {% for agendamento in agendamento %}
+    {% for a in agendamento %}
     <tr>
-        <td>{{ agendamento.cliente }}</td>
-        <td>{{ agendamento.dataAgendamento }}</td>
-        <td>{{ agendamento.servico }}</td>
-        <td>{{ agendamento.horario }}</td>
+        <td>{{ a.cliente }}</td>
+        <td>{{ a.dataAgendamento }}</td>
+        <td>{{ a.servico }}</td>
+        <td>{{ a.horario }}</td>
     </tr>
     {% empty %}
     <tr>

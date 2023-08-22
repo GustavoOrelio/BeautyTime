@@ -101,6 +101,30 @@ class EmpresaCreateView(GroupRequiredMixin, CreateView):
         dados["titulo"] = "Cadastro de Empresas"
         return dados
 
+class ServicoCreateView(GroupRequiredMixin, CreateView):
+    model = Servico
+    fields = ["nome", "descricao", "valor"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-servico")
+    group_required = ["Administrador"]
+
+    def get_context_data(self, *args, **kwargs):
+        dados = super().get_context_data(*args, **kwargs)
+        dados["titulo"] = "Cadastro de Serviço"
+        return dados
+
+class AgendamentoCreateView(GroupRequiredMixin, CreateView):
+    model = Agendamento
+    fields = ["cliente", "dataAgendamento", "servico", "horario"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-agendamento")
+    group_required = ["Administrador"]
+
+    def get_context_data(self, *args, **kwargs):
+        dados = super().get_context_data(*args, **kwargs)
+        dados["titulo"] = "Cadastro de Agendamento"
+        return dados
+
 #################### ATUALIZAR ####################
 
 
@@ -141,11 +165,24 @@ class CidadeUpdateView(GroupRequiredMixin, UpdateView):
 class EmpresaUpdateView(GroupRequiredMixin, UpdateView):
     model = Empresa
     fields = ["nome", "cnpj", "telefone", "endereco", "numero", "cep", "bairro",
-              "logo", "data_cadastro", "horario_abertura", "horario_fechamento"]
+              "logo", "data_cadastro", "horario_abertura", "horario_fechamento", "funcionario"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-empresa")
     group_required = ["Administrador"]
 
+class ServicoUpdateView(GroupRequiredMixin, UpdateView):
+    model = Servico
+    fields = ["nome", "descricao", "valor"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-servico")
+    group_required = ["Administrador"]
+
+class AgendamentoUpdateView(GroupRequiredMixin, UpdateView):
+    model = Agendamento
+    fields = ["cliente", "dataAgendamento", "servico", "horario"]
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-agendamento")
+    group_required = ["Administrador"]
 
 #################### DELETAR ####################
 
@@ -184,6 +221,18 @@ class EmpresaDeleteView(GroupRequiredMixin, DeleteView):
     success_url = reverse_lazy("listar-empresa")
     group_required = ["Administrador"]
 
+class ServicoDeleteView(GroupRequiredMixin, DeleteView):
+    model = Servico
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-servico")
+    group_required = ["Administrador"]
+
+class AgendamentoDeleteView(GroupRequiredMixin, DeleteView):
+    model = Agendamento
+    template_name = "cadastros/form.html"
+    success_url = reverse_lazy("listar-agendamento")
+    group_required = ["Administrador"]
+
 #################### LISTAR ####################
 
 
@@ -193,12 +242,20 @@ class FuncionarioList(GroupRequiredMixin, ListView):
     group_required = ["Administrador"]
     paginate_by = 50
 
+    def get_queryset(self):
+        self.object_list = Funcionario.objects.all().select_related("usuario")
+        return self.object_list
+
 
 class ClienteList(GroupRequiredMixin, ListView):
     model = Cliente
     template_name = "cadastros/list/cliente.html"
     group_required = ["Administrador"]
     paginate_by = 50
+
+    def get_queryset(self):
+        self.object_list = Cliente.objects.all().select_related("usuario")
+        return self.object_list
 
 
 class EstadoList(GroupRequiredMixin, ListView):
@@ -214,12 +271,36 @@ class CidadeList(GroupRequiredMixin, ListView):
     group_required = ["Administrador"]
     paginate_by = 50
 
+    def get_queryset(self):
+        self.object_list = Cidade.objects.all().select_related("estado")
+        return self.object_list
+
 
 class EmpresaList(GroupRequiredMixin, ListView):
     model = Empresa
     template_name = "cadastros/list/empresa.html"
     group_required = ["Administrador"]
     paginate_by = 50
+
+    def get_queryset(self):
+        self.object_list = Empresa.objects.all().select_related("cidade", "funcionario")
+        return self.object_list
+
+class ServicoList(GroupRequiredMixin, ListView):
+    model = Servico
+    template_name = "cadastros/list/servico.html"
+    group_required = ["Administrador"]
+    paginate_by = 50
+
+class AgendamentoList(GroupRequiredMixin, ListView):
+    model = Agendamento
+    template_name = "cadastros/list/agendamento.html"
+    group_required = ["Administrador"]
+    paginate_by = 50
+
+    def get_queryset(self):
+        self.object_list = Agendamento.objects.all().select_related("cliente", "servico")
+        return self.object_list
 
 #################### DETALHES ####################
 
@@ -251,6 +332,16 @@ class CidadeDetailView(GroupRequiredMixin, DetailView):
 class EmpresaDetailView(GroupRequiredMixin, DetailView):
     model = Empresa
     template_name = "cadastros/detail/empresa.html"
+    group_required = ["Administrador"]
+
+class ServicoDetailView(GroupRequiredMixin, DetailView):
+    model = Servico
+    template_name = "cadastros/detail/servico.html"
+    group_required = ["Administrador"]
+
+class AgendamentoDetailView(GroupRequiredMixin, DetailView):
+    model = Agendamento
+    template_name = "cadastros/detail/agendamento.html"
     group_required = ["Administrador"]
 
 ############## AUTOCOMPLETE ################
