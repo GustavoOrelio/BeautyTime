@@ -90,7 +90,7 @@ class Servico(models.Model):
 
 class Agendamento(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.PROTECT)
-    dataAgendamento = models.DateField(verbose_name="Data de Agendamento")
+    data_agendamento = models.DateField(verbose_name="Data de Agendamento")
     servico = models.ForeignKey(Servico, on_delete=models.PROTECT)
     horario = models.TimeField(verbose_name="Horário")
 

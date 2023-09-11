@@ -115,7 +115,7 @@ class ServicoCreateView(GroupRequiredMixin, CreateView):
 
 class AgendamentoCreateView(GroupRequiredMixin, CreateView):
     model = Agendamento
-    fields = ["cliente", "dataAgendamento", "servico", "horario"]
+    fields = ["cliente", "data_agendamento", "servico", "horario"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-agendamento")
     group_required = ["Administrador"]
@@ -179,7 +179,7 @@ class ServicoUpdateView(GroupRequiredMixin, UpdateView):
 
 class AgendamentoUpdateView(GroupRequiredMixin, UpdateView):
     model = Agendamento
-    fields = ["cliente", "dataAgendamento", "servico", "horario"]
+    fields = ["cliente", "data_agendamento", "servico", "horario"]
     template_name = "cadastros/form.html"
     success_url = reverse_lazy("listar-agendamento")
     group_required = ["Administrador"]
