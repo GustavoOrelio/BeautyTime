@@ -8,18 +8,17 @@ class EmpresaForm(forms.ModelForm):
     class Meta:
         model = Empresa
         fields = [
-            "nome", "cnpj", "telefone", "endereco", "numero", "cep", "bairro", "logo",
-            "data_cadastro", "horario_abertura", "horario_fechamento", "cidade", "funcionario", 
+            'nome', 'cnpj', 'telefone', 'endereco', 'numero', 'cep', 'bairro', 'logo',
+            'data_cadastro', 'horario_abertura', 'horario_fechamento', 'cidade', 'funcionario'
         ]
         widgets = {
             
-            # O campo "funcionario" vai usar a seguinte URL para montar o campo
+            # O campo 'funcionario' vai usar a seguinte URL para montar o campo
             # e fazer o filtro com base no que foi digitado
-            "funcionario" : autocomplete.ModelSelect2(
-                url="buscar-funcionario",
+            'funcionario' : autocomplete.ModelSelect2Multiple(
+                url='buscar-funcionario',
                 attrs={
                     'data-placeholder': 'Informe o nome do funcionario...',
-                    'data-minimum-input-length': 3,
                 }, # Fim do attrs
             ),  # Fim do autocomplete.ModelSelect2()
 

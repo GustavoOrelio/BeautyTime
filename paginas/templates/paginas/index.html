@@ -40,6 +40,29 @@
 <p>
     Faça o login ou se registre no sistema.
 </p>
+
+<button type="button" class="btn btn-dark" id="btn-login">
+    Login
+</button>
+
 {% endif %}
 
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+$(document).ready(function () {
+
+    $("#btn-login").click(function (e) { 
+        var tipo = $("#btn-login").prop("type");
+
+        alert("Tipo do botão: " + tipo);
+
+        $("#btn-login").prop("type", "reset");
+    });
+    
+});
+
+</script>
 {% endblock %}

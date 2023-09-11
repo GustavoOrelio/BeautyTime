@@ -73,7 +73,7 @@ class Empresa(models.Model):
     horario_abertura = models.TimeField()
     horario_fechamento = models.TimeField()
     cidade = models.ForeignKey(Cidade, on_delete=models.PROTECT)
-    funcionario = models.ForeignKey(Funcionario, on_delete=models.PROTECT)
+    funcionario = models.ManyToManyField(Funcionario)
 
     def __str__(self):
         return self.nome

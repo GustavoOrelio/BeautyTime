@@ -1,0 +1,60 @@
+{% extends "paginas/modelo.html" %} 
+
+{% load static %} 
+
+{% load crispy_forms_tags%} 
+
+{% block conteudo %}
+<h3 class="mt-3 border-bottom mb-4 pb-2">
+    Autenticação
+</h3>
+
+<form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %} 
+
+    <div id="div_id_username" class="mb-3"> 
+        <label for="id_username" class="form-label requiredField">
+    Usuário<span class="asteriskField">*</span> 
+</label> 
+<input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" class="textinput form-control" required id="id_username"> 
+</div> 
+
+<div id="div_id_password" class="mb-3"> 
+    <label for="id_password" class="form-label requiredField">Senha<span class="asteriskField">*</span></label> 
+<input type="password" name="password" autocomplete="current-password" class="passwordinput form-control" required id="id_password"> 
+</div>
+
+    <span class="btn btn-light" id="btn-mostrar-senha">
+        Mostrar Senha
+    </span>
+
+    <button type="submit" class="btn btn-success">
+        <i class="bi bi-check-lg"></i>
+        Entrar
+    </button>
+    
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+{{ form.media }}
+
+<script>
+    $(document).ready(function () {
+
+    $("#btn-mostrar-senha").click(function (e) { 
+        var tipo = $("#password").attr("type");
+
+        alert("Tipo do campo: " + tipo);
+
+        if(tipo == "password")
+            $("#password").attr("type", "text");
+        else
+            $("#password").attr("type", "password");
+    });
+    
+});
+</script>
+
+{% endblock %}
